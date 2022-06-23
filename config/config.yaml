@@ -1,0 +1,17 @@
+logger:
+  level: info
+  file: ./emulator_logs.log
+db:
+  maxOpenConnections: 20
+  maxIdleConnections: 5
+  maxConnectionLifetime: 3m  
+  port: 5432:5432
+  dsn: "host=net-emulator user=f3 password=1234 dbname=payment sslmode=disable"
+server:
+  host: net-emulator
+  port: 50051
+  connectionTimeout: 5s
+publisher:
+  uri: "amqp://guest:guest@net-rabbit:5672/"
+  queueName: "emulator-stats-queue"
+  exchangeName: "emulator-stats-exchange"

@@ -1,0 +1,73 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Payment Service Emulator
+servers:
+  - url: http://127.0.0.1/
+paths:
+  /payment: 
+    post:
+      description: creates new payment
+      requestBody:
+        description: payment to create 
+        content: 
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/Payment'
+      responses: 
+      '200':
+        descrption: created payment
+        content: 
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Payment'
+  /payment/{id}/: 
+    put: 
+      description: changes payment status
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          schema: 
+            type: string 
+      responses:
+        '200':
+          description: payment status is changed
+        '404':
+          description: not found
+    get: 
+      description: gets payment status by id 
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          schema: 
+            type: string 
+      responses:
+        '200':
+          description: payment status 
+        '404':
+          description: not found
+    delete: 
+      description: deletes payment by id 
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          schema: 
+            type: string 
+      responses:
+        '200':
+          description: payment is deleted by id
+        '400':
+          description: Bad reqest can be returned in cases when cancel is not possible for payment.
+            Cancel is not possible for payment with status "success" or status "fail".
+components:
+  schemas:
+    Payment:
+      type: object
+      properties:
+        id: 
+          type: int
+        text:
+          type: string 
